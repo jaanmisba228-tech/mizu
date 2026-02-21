@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mizbah Gazi - Women's Fashion</title>
+    <style>
+        :root { --pink: #f43397; --light-gray: #f9f9f9; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #fff; color: #333; }
+        
+        /* Header */
+        header { background: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ddd; position: sticky; top: 0; z-index: 100; }
+        .logo { font-size: 24px; font-weight: bold; color: var(--pink); }
+        
+        /* Navigation */
+        nav { background: #fff; padding: 10px; text-align: center; border-bottom: 1px solid #eee; }
+        nav a { margin: 0 15px; text-decoration: none; color: #555; font-weight: 500; }
+
+        /* Product Section */
+        .container { padding: 20px 5%; }
+        .category-title { border-left: 5px solid var(--pink); padding-left: 10px; margin: 30px 0 20px; text-transform: uppercase; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
+        .card { border: 1px solid #eee; border-radius: 8px; padding: 10px; transition: 0.3s; }
+        .card:hover { shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .card img { width: 100%; height: 250px; object-fit: cover; border-radius: 5px; }
+        .card h3 { font-size: 16px; margin: 10px 0; }
+        .price { color: #222; font-weight: bold; font-size: 18px; }
+        .buy-btn { background: var(--pink); color: white; border: none; width: 100%; padding: 10px; border-radius: 4px; cursor: pointer; margin-top: 10px; }
+
+        /* Modal Form */
+        #orderModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; }
+        .modal-content { background: white; width: 90%; max-width: 400px; margin: 50px auto; padding: 20px; border-radius: 10px; position: relative; }
+        .modal-content input, .modal-content textarea { width: 100%; padding: 10px; margin: 8px 0; border: 1px solid #ccc; box-sizing: border-box; }
+        .close { position: absolute; right: 15px; top: 10px; font-size: 24px; cursor: pointer; }
+        .submit-btn { background: #25D366; color: white; border: none; width: 100%; padding: 12px; font-size: 16px; cursor: pointer; }
+        .no-cod { color: red; font-size: 12px; font-weight: bold; text-align: center; display: block; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">MIZBAH GAZI</div>
+    <div>🛒 Cart</div>
+</header>
+
+<nav>
+    <a href="#footwear">Footwear</a>
+    <a href="#clothes">Clothes</a>
+    <a href="#skirts">Skirts</a>
+    <a href="#jeans">Jeans</a>
+    <a href="#jewellery">Jewellery</a>
+</nav>
+
+<div class="container">
+    <h2 id="footwear" class="category-title">Footwear Collection</h2>
+    <div class="grid">
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=500" alt="Heels">
+            <h3>Designer Party Heels</h3>
+            <p class="price">₹1,299</p>
+            <button class="buy-btn" onclick="openModal('Designer Party Heels', '₹1,299')">Buy Now</button>
+        </div>
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?q=80&w=500" alt="Sneakers">
+            <h3>White Casual Sneakers</h3>
+            <p class="price">₹899</p>
+            <button class="buy-btn" onclick="openModal('White Casual Sneakers', '₹899')">Buy Now</button>
+        </div>
+    </div>
+
+    <h2 id="clothes" class="category-title">Latest Clothes</h2>
+    <div class="grid">
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1539008835279-43469393d161?q=80&w=500" alt="Dress">
+            <h3>Floral Summer Dress</h3>
+            <p class="price">₹1,500</p>
+            <button class="buy-btn" onclick="openModal('Floral Summer Dress', '₹1,500')">Buy Now</button>
+        </div>
+    </div>
+
+    <h2 id="jewellery" class="category-title">Jewellery</h2>
+    <div class="grid">
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1535633302704-5021eb1c376f?q=80&w=500" alt="Jewellery">
+            <h3>Gold Plated Necklace</h3>
+            <p class="price">₹499</p>
+            <button class="buy-btn" onclick="openModal('Gold Plated Necklace', '₹499')">Buy Now</button>
+        </div>
+    </div>
+</div>
+
+<div id="orderModal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h3>Confirm Your Order</h3>
+        <p id="productInfo" style="font-weight: bold; color: var(--pink);"></p>
+        <span class="no-cod">* COD NOT AVAILABLE (Prepaid Only)</span>
+        
+        <input type="text" id="custName" placeholder="Full Name" required>
+        <input type="text" id="custStreet" placeholder="Street Address" required>
+        <input type="text" id="custPincode" placeholder="Pincode" required>
+        <input type="text" id="custShipping" placeholder="Shipping Address" required>
+        <input type="text" id="custBilling" placeholder="Billing Address (If different)">
+        
+        <button class="submit-btn" onclick="sendToWhatsApp()">Send Order via WhatsApp</button>
+    </div>
+</div>
+
+<script>
+    let selectedProduct = "";
+    let selectedPrice = "";
+
+    function openModal(name, price) {
+        selectedProduct = name;
+        selectedPrice = price;
+        document.getElementById('productInfo').innerText = "Ordering: " + name + " (" + price + ")";
+        document.getElementById('orderModal').style.display = 'block';
+    }
+
+    function closeModal() {
+        document.getElementById('orderModal').style.display = 'none';
+    }
+
+    function sendToWhatsApp() {
+        const name = document.getElementById('custName').value;
+        const street = document.getElementById('custStreet').value;
+        const pin = document.getElementById('custPincode').value;
+        const ship = document.getElementById('custShipping').value;
+        const bill = document.getElementById('custBilling').value || ship;
+
+        if(!name || !street || !pin || !ship) {
+            alert("Please fill all required fields!");
+            return;
+        }
+
+        const wpNumber = "919103803607"; // Aapka number
+        const message = `*NEW ORDER - MIZBAH GAZI*%0A%0A` +
+                        `*Product:* ${selectedProduct}%0A` +
+                        `*Price:* ${selectedPrice}%0A` +
+                        `--------------------------%0A` +
+                        `*Name:* ${name}%0A` +
+                        `*Street:* ${street}%0A` +
+                        `*Pincode:* ${pin}%0A` +
+                        `*Shipping:* ${ship}%0A` +
+                        `*Billing:* ${bill}%0A` +
+                        `*Payment:* Online Only (No COD)`;
+
+        window.open(`https://wa.me/${wpNumber}?text=${message}`, '_blank');
+        closeModal();
+    }
+</script>
+
+</body>
+</html>
